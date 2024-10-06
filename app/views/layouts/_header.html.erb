@@ -1,15 +1,30 @@
-<div class="flex items-center justify-between bg-white shadow p-4">
-  <div class="flex items-center pl-64">
+<div class="flex items-center justify-between p-4 bg-white shadow">
+  <div class="flex items-center">
     <% unless current_user.is_reset_password %>
+        <button id="hamburger" class="z-10 lg:hidden" type="button" onClick="togleMenu()">
+          <span class="">
+             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="" viewBox="0 0 24 24">
+                <path stroke="#909090" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+              </svg>
+          </span>
+        </button>
       <% unless current_page?(root_url) %>
-        <a href="javascript:history.back()" class="text-blue-500 hover:text-blue-700 font-bold mb-4 inline-block">← Voltar</a>
+        
+        <a href="javascript:history.back()" id="back-button" class="hidden font-bold text-blue-500 hover:text-blue-700 lg:inline-block">← Voltar</a>
       <% else %>
-        <span class="text-blue-300 font-bold mb-4 inline-block">← Voltar</span>
+        <span class="invisible inline-block font-bold text-blue-300">← Voltar</span>
       <% end %>
     <% end %>
   </div>
   <div class="flex items-center space-x-4">
-    <span class="text-gray-700 font-medium">Usuário: <%= current_user.username %></span>
+    <span class="font-medium text-gray-700">Usuário: <%= current_user.username %></span>
     <%= link_to 'Logout', destroy_user_session_path, data: { "turbo-method": :delete }, class: 'text-red-500 hover:text-red-700' %>
   </div>
 </div>
+
+<script>
+  function togleMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('hidden');
+  }
+</script>

@@ -1,7 +1,7 @@
 <div id="is_end_<%= phase.id %>">
   <%= button_to "#{phase.is_end ? 'Sim' : 'Não'}", set_as_ending_phase_path(phase), method: :patch, 
     form: { data: { turbo_frame: "is_end_" + phase.id.to_s } }, 
-    class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded' 
+    class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded text-nowrap' 
   %>
 
   <%= button_to "Refresh", refresh_phase_path(phase), method: :patch, 

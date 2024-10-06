@@ -1,28 +1,28 @@
-<div class="container p-4 ml-10">
+<div class="px-8 py-4 mx-auto">
   <%= render 'layouts/flash' %>
 
   <h1 class="text-2xl font-bold mb-4">Lista de Projetos <%= "- #{@phase.name.capitalize}" if params[:phase_id] %></h1>
   
   <table class="min-w-full bg-white">
     <thead>
-      <tr>
-        <th class="py-2 px-4 border-b border-gray-300 text-left">Nome</th>
-        <th class="py-2 px-4 border-b border-gray-300 text-left">CPF/CNPJ</th>
-        <th class="py-2 px-4 border-b border-gray-300 text-left">Status</th>
-        <th class="py-2 px-4 border-b border-gray-300 text-left">Telefone</th>
-        <th class="py-2 px-4 border-b border-gray-300 text-left">Data</th>
+      <tr class="border-b border-gray-200">
+        <th class="py-2 pr-4 text-left text-nowrap">Nome</th>
+        <th class="py-2 pr-4 text-left text-nowrap">CPF/CNPJ</th>
+        <th class="py-2 pr-4 text-left text-nowrap">Status</th>
+        <th class="py-2 pr-4 text-left text-nowrap">Telefone</th>
+        <th class="py-2 pr-4 text-left text-nowrap">Data</th>
       </tr>
     </thead>
     <tbody>
       <% @projects.each do |project| %>
-        <tr>
-          <td class="py-2 px-4 border-b border-gray-300"><%= project.client.name %><%= " - #{project.client.company_name}" if project.client.type == 'Company' %></td>
-          <td class="py-2 px-4 border-b border-gray-300"><%= project.client.document_number %></td>
-          <td class="py-2 px-4 border-b border-gray-300"><%= project.phase.name.capitalize %></td>
-          <td class="py-2 px-4 border-b border-gray-300"><%= project.client.phone %></td>
-          <td class="py-2 px-4 border-b border-gray-300"><%= project.created_at.strftime('%d/%m/%Y - %H:%M') %></td>
-          <td class="py-2 px-4 border-b border-gray-300">
-            <%= link_to (project.phase.is_end ? 'Visualizar' : 'Editar'), edit_project_path(project), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded' %>
+        <tr class="border-b border-gray-200">
+          <td class="py-2 pr-4"><%= project.client.name %><%= " - #{project.client.company_name}" if project.client.type == 'Company' %></td>
+          <td class="py-2 pr-4"><%= project.client.document_number %></td>
+          <td class="py-2 pr-4"><%= project.phase.name.capitalize %></td>
+          <td class="py-2 pr-4"><%= project.client.phone %></td>
+          <td class="py-2 pr-4"><%= project.created_at.strftime('%d/%m/%Y - %H:%M') %></td>
+          <td class="py-2 pr-4">
+            <%= link_to (project.phase.is_end ? 'Visualizar' : 'Editar'), edit_project_path(project), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded text-nowrap' %>
           </td>
         </tr>
       <% end %>

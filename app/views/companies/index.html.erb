@@ -1,9 +1,9 @@
-<div class="container p-4 ml-10">
+<div class="px-8 py-4 mx-auto">
   <%= render 'layouts/flash' %>
 
-  <h1 class="text-2xl font-bold mb-4">Lista de Pessoas Jurídica</h1>
+  <h1 class="mb-4 text-2xl font-bold">Lista de Pessoas Jurídica</h1>
 
-  <div class="flex items-center justify-between mb-4 w-full">
+  <div class="flex flex-wrap items-center justify-between w-full gap-2 mb-4">
     <div>
       <%= link_to 'Novo Cliente', new_company_path, class: 'bg-customOrange hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mb-4 inline-block' %>
     </div>
@@ -25,27 +25,27 @@
   <turbo-frame id="search_results">
     <table class="min-w-full bg-white">
       <thead>
-        <tr>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Nome</th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Nome Fantasia</th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">CNPJ</th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Telefone</th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Ações</th>
+        <tr class="border-b border-gray-200">
+          <th class="py-2 pr-4 text-left text-nowrap">Nome</th>
+          <th class="py-2 pr-4 text-left text-nowrap">Nome Fantasia</th>
+          <th class="py-2 pr-4 text-left text-nowrap">CNPJ</th>
+          <th class="py-2 pr-4 text-left text-nowrap">Telefone</th>
+          <th class="py-2 pr-4 text-left text-nowrap">Ações</th>
         </tr>
       </thead>
       <tbody>
         <% @companies.each do |company| %>
-          <tr>
-            <td class="py-2 px-4 border-b border-gray-300"><%= company.name %></td>
-            <td class="py-2 px-4 border-b border-gray-300"><%= company.company_name %></td>
-            <td class="py-2 px-4 border-b border-gray-300"><%= company.cnpj %></td>
-            <td class="py-2 px-4 border-b border-gray-300"><%= company.phone %></td>
-            <td class="py-2 px-4 border-b border-gray-300">
-              <%= link_to 'Editar', edit_company_path(company), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded', data: { turbo: false } %>
-              <button type="button" onclick="openModal(<%= company.id %>)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">Excluir</button>
-              <%= link_to 'Criar Projeto', new_project_path(client_id: company.id), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded', data: { turbo: false } %>
+          <tr class="border-b border-gray-200">
+            <td class="py-2 pr-4"><%= company.name %></td>
+            <td class="py-2 pr-4"><%= company.company_name %></td>
+            <td class="py-2 pr-4"><%= company.cnpj %></td>
+            <td class="py-2 pr-4"><%= company.phone %></td>
+            <td class="flex flex-wrap gap-1 py-2 pr-4">
+              <%= link_to 'Editar', edit_company_path(company), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded text-nowrap', data: { turbo: false } %>
+              <button type="button" onclick="openModal(<%= company.id %>)" class="px-2 py-1 font-bold text-white bg-red-500 rounded hover:bg-red-600">Excluir</button>
+              <%= link_to 'Criar Projeto', new_project_path(client_id: company.id), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded text-nowrap', data: { turbo: false } %>
               <% if company.projects.present? %>
-                <%= link_to 'Visualizar Projetos', projects_path(client_id: company.id), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded', data: { turbo: false } %>
+                <%= link_to 'Visualizar Projetos', projects_path(client_id: company.id), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded text-nowrap', data: { turbo: false } %>
               <% end %>
             </td>
           </tr>
@@ -55,12 +55,12 @@
   </turbo-frame>
 
   <!-- Modal -->
-  <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-8 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Confirmação de Exclusão</h2>
+  <div id="deleteModal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
+    <div class="p-8 bg-white rounded-lg shadow-lg">
+      <h2 class="mb-4 text-xl font-bold">Confirmação de Exclusão</h2>
       <p class="mb-4">Tem certeza de que deseja excluir este cliente?</p>
       <div class="flex justify-end space-x-4">
-        <button type="button" onclick="closeModal()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</button>
+        <button type="button" onclick="closeModal()" class="px-4 py-2 font-bold text-white bg-gray-500 rounded hover:bg-gray-600">Cancelar</button>
         <%= button_to 'Confirmar', '', method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded', id: 'deleteButton' %>
       </div>
     </div>

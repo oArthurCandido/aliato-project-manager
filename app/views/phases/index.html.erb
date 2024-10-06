@@ -1,38 +1,38 @@
-<div class="container p-4 ml-10">
+<div class="px-8 py-4 mx-auto">
   <%= render 'layouts/flash' %>
 
-  <h1 class="text-2xl font-bold mb-4">Lista de Fases</h1>
+  <h1 class="mb-4 text-2xl font-bold">Lista de Fases</h1>
   <div class="flex items-center mb-4">
     <%= link_to 'Nova Fase', new_phase_path, class: 'bg-customOrange hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mr-4' %>
   </div>
     <table class="min-w-full bg-white">
-      <thead>
-        <tr>
-          <th class="py-2 px-4 border-b border-gray-300 text-left"></th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Nome</th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Descrição</th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Fim de Fase</th>
-          <th class="py-2 px-4 border-b border-gray-300 text-left">Ações</th>
+      <thead class="border-b border-gray-200 ">
+        <tr class="border-b border-gray-200">
+          <th class="py-2 pr-4 text-left"></th>
+          <th class="py-2 pr-4 text-left text-nowrap">Descrição</th>
+          <th class="py-2 pr-4 text-left text-nowrap">Fim de Fase</th>
+          <th class="py-2 pr-4 text-left text-nowrap">Nome</th>
+          <th class="py-2 pr-4 text-left text-nowrap">Ações</th>
         </tr>
       </thead>
       <tbody data-controller="sortable">
         <% @phases.each do |phase| %>
-          <tr data-sortable-url="<%= update_order_phases_phases_path(phase) %>" data-phase-id="<%= phase.id %>">
-            <td class="py-2 px-4 border-b border-gray-300" data-sortable-handle>
+          <tr data-sortable-url="<%= update_order_phases_phases_path(phase) %>" data-phase-id="<%= phase.id %>" class="border-b border-gray-200">
+            <td class="py-2 pr-4" data-sortable-handle>
               <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
               </svg>
             </td>
-            <td class="py-2 px-4 border-b border-gray-300"><%= phase.name_capitalize %></td>
-            <td class="py-2 px-4 border-b border-gray-300"><%= phase.description %></td>
-            <td class="py-2 px-4 border-b border-gray-300">
+            <td class="py-2 pr-4"><%= phase.name_capitalize %></td>
+            <td class="py-2 pr-4"><%= phase.description %></td>
+            <td class="py-2 pr-4">
 
               <%= render 'end_of_phase', phase: phase %>
 
             </td>
-            <td class="py-2 px-4 border-b border-gray-300">
-              <%= link_to 'Editar', edit_phase_path(phase), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded' %>
-              <button type="button" onclick="openModal(<%= phase.id %>)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">Excluir</button>
+            <td class="flex flex-wrap gap-1 py-2 pr-4">
+              <%= link_to 'Editar', edit_phase_path(phase), class: 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded text-nowrap' %>
+              <button type="button" onclick="openModal(<%= phase.id %>)" class="px-2 py-1 font-bold text-white bg-red-500 rounded hover:bg-red-600">Excluir</button>
             </td>
           </tr>
         <% end %>
@@ -41,12 +41,12 @@
 
 
   <!-- Modal -->
-  <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-8 rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Confirmação de Exclusão</h2>
+  <div id="deleteModal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
+    <div class="p-8 bg-white rounded-lg shadow-lg">
+      <h2 class="mb-4 text-xl font-bold">Confirmação de Exclusão</h2>
       <p class="mb-4">Tem certeza de que deseja excluir esta fase?</p>
       <div class="flex justify-end space-x-4">
-        <button type="button" onclick="closeModal()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</button>
+        <button type="button" onclick="closeModal()" class="px-4 py-2 font-bold text-white bg-gray-500 rounded hover:bg-gray-600">Cancelar</button>
         <%= button_to 'Confirmar', '', method: :delete, data: { confirm: 'Você tem certeza?' }, class: 'bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded', id: 'deleteButton' %>
       </div>
     </div>

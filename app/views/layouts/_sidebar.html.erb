@@ -1,34 +1,41 @@
-<div class="fixed top-0 left-0 h-full bg-gray-800 text-white w-64">
-  <div class="flex items-center justify-center h-20 border-b border-gray-700">
-    <%= image_tag("logo.png", :alt => "Aliato", :class => "h-12") %>
+<div id="menu" class="absolute top-0 left-0 hidden h-screen bg-gray-800 lg:static lg:block min-w-72 w-fit">
+  <div class="flex items-center justify-center px-4 py-3 border-b border-gray-700">
+    <%= image_tag("logo.png", :alt => "Aliato", :class => "h-8") %>
   </div>
-  <div class="overflow-auto p-2 h-full">
+  
+  <div class="px-4 pt-4">
+     <% unless current_page?(root_url) %>
+        <div class="py-4">
+           <a href="javascript:history.back()" id="back-button" class="pb-6 font-bold text-blue-500 hover:text-blue-700 lg:hidden">← Voltar</a>
+          </div>
+      <% end %>
+     
     <ul>
       <% if current_user.admin? %>
         <li class="mb-4">
-          <%= link_to 'Cadastro de Operador', operators_path, class: "#{controller.controller_name == 'operators' ? 'text-white' : 'text-gray-500'} hover:text-gray-400" %>
+          <%= link_to 'Cadastro de Operador', operators_path, class: "#{controller.controller_name == 'operators' ? 'underline text-gray-100' : 'text-gray-300'} text-nowrap hover:text-gray-200" %>
         </li>
         <li>
-          <%= link_to 'Cadastro de Fase de Projeto', phases_path, class: "#{controller.controller_name == 'phases' ? 'text-white' : 'text-gray-500'} hover:text-gray-400" %>
+          <%= link_to 'Cadastro de Fase de Projeto', phases_path, class: "#{controller.controller_name == 'phases' ? 'underline text-gray-100' : 'text-gray-300'} text-nowrap hover:text-gray-200" %>
         </li>
       <% elsif current_user.operator? && !current_user.is_reset_password %>
         <li class="mb-4">
-          <%= link_to 'Pessoa Física', individuals_path, class: "#{controller.controller_name == 'individuals' ? 'text-white' : 'text-gray-500'} hover:text-gray-400" %>
+          <%= link_to 'Pessoa Física', individuals_path, class: "#{controller.controller_name == 'individuals' ? 'underline text-gray-100' : 'text-gray-300'} text-nowrap hover:text-gray-200" %>
         </li>
         <li class="mb-4">
-          <%= link_to 'Pessoa Jurídica', companies_path, class: "#{controller.controller_name == 'companies' ? 'text-white' : 'text-gray-500'} hover:text-gray-400" %>
+          <%= link_to 'Pessoa Jurídica', companies_path, class: "#{controller.controller_name == 'companies' ? 'underline text-gray-100' : 'text-gray-300'} text-nowrap hover:text-gray-200" %>
         </li>
         <li class="mb-4">
-          <%= link_to 'Visualizar Projetos', projects_path, class: "#{controller.controller_name == 'projects' && params[:phase_id].nil? ? 'text-white' : 'text-gray-500'} hover:text-gray-400" %>
+          <%= link_to 'Visualizar Projetos', projects_path, class: "#{controller.controller_name == 'projects' && params[:phase_id].nil? ? 'underline text-gray-100' : 'text-gray-300'} text-nowrap hover:text-gray-200" %>
         </li>
         <% Phase.where(is_end: [false, nil]).order('position ASC').each do |phase| %>
           <li class="mb-4">
-            <%= link_to "• #{phase.name.capitalize} (#{Project.where(phase_id: phase.id).count})", projects_path(phase_id: phase.id), class: "#{controller.controller_name == 'projects' && params[:phase_id].to_i == phase.id ? 'text-white' : 'text-gray-500'} hover:text-gray-400" %>
+            <%= link_to "• #{phase.name.capitalize} (#{Project.where(phase_id: phase.id).count})", projects_path(phase_id: phase.id), class: "#{controller.controller_name == 'projects' && params[:phase_id].to_i == phase.id ? 'underline text-gray-100' : 'text-gray-300'} text-nowrap hover:text-gray-200" %>
           </li>
         <% end %>
         <% Phase.where(is_end: true).order('position ASC').each do |phase| %>
           <li class="mb-4">
-            <%= link_to "• #{phase.name.capitalize}", projects_path(phase_id: phase.id), class: "#{controller.controller_name == 'projects' && params[:phase_id].to_i == phase.id ? 'text-white' : 'text-gray-500'} hover:text-gray-400" %>
+            <%= link_to "• #{phase.name.capitalize}", projects_path(phase_id: phase.id), class: "#{controller.controller_name == 'projects' && params[:phase_id].to_i == phase.id ? 'underline text-gray-100' : 'text-gray-300'} text-nowrap hover:text-gray-200" %>
           </li>
         <% end %>
       <% end %>
